@@ -2,21 +2,45 @@ name: Bot Run
 
 on:
   schedule:
-    - cron: '0 8 * * *'   # démarre à 8h tous les jours
+    - cron: '0 8 * * *'     # Job 1: 8h00 → 12h30
+    - cron: '30 14 * * *'   # Job 2: 14h30 → 18h30
+    - cron: '30 18 * * *'   # Job 3: 18h30 → 21h00
   workflow_dispatch:
 
 jobs:
-  run-bot:
+  run-bot-1:
     runs-on: ubuntu-latest
-    timeout-minutes: 360   # tourne 6 heures max
-
+    timeout-minutes: 270   # 4h30
     steps:
       - uses: actions/checkout@v3
-
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
-
       - name: Run Bot
         run: python bot.py
+
+  run-bot-2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240   # 4h
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Run Bot
+        run: python bot.py
+
+  run-bot-3:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150   # 2h30
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - name: Run Bot
+        run: python bot.py
+
